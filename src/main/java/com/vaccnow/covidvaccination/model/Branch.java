@@ -14,8 +14,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name = "VACCINATION_BRANCH")
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class Branch extends Auditable {
 
 	@Id
@@ -32,36 +37,4 @@ public class Branch extends Auditable {
 	@JoinTable(name = "BRANCHES_AND_VACCINES", joinColumns = @JoinColumn(name = "branch_id"), inverseJoinColumns = @JoinColumn(name = "vaccine_id"))
 	private List<Vaccine> vaccines;
 
-	public String getName() {
-		return name;
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public LocalTime getTimeFrom() {
-		return timeFrom;
-	}
-
-	public void setTimeFrom(LocalTime timeFrom) {
-		this.timeFrom = timeFrom;
-	}
-
-	public LocalTime getTimeTo() {
-		return timeTo;
-	}
-
-	public void setTimeTo(LocalTime timeTo) {
-		this.timeTo = timeTo;
-	}
-
-	public List<Vaccine> getVaccines() {
-		return vaccines;
-	}
-
-	public void setVaccines(List<Vaccine> vaccines) {
-		this.vaccines = vaccines;
-	}
-
-}

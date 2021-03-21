@@ -9,8 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name = "VACCINE")
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class Vaccine extends Auditable {
 
 	@Id
@@ -24,28 +29,5 @@ public class Vaccine extends Auditable {
 	@ManyToMany(mappedBy = "vaccines")
 	private List<Branch> branches;
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getManufacturer() {
-		return manufacturer;
-	}
-
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-
-	public List<Branch> getBranches() {
-		return branches;
-	}
-
-	public void setBranches(List<Branch> branches) {
-		this.branches = branches;
-	}
 
 }

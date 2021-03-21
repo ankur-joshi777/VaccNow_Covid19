@@ -8,7 +8,7 @@ public class Constants {
 	public static final String API_V1 = "api/v1/";
 	public static final String BRANCH_PATH = "branches";
 	public static final String VACCINATION_PATH = "vaccinations";
-	public static final String REPORTING_PATH = "reporting";
+	public static final String REPORTING_PATH = "reportings";
 	public static final String LOGGER_FORMAT = "{}:{}";
 	public static final int MINUTES_INTERVAL = 15;
 

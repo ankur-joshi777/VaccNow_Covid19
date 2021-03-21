@@ -12,8 +12,13 @@ import javax.persistence.Version;
 
 import com.vaccnow.covidvaccination.constants.PaymentStatus;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 @Entity
 @Table(name = "APPOINTMENTS")
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class Appointment extends Auditable {
 
 	@Id
@@ -39,76 +44,4 @@ public class Appointment extends Auditable {
 	@Version
 	private long version;
 
-	public int getId() {
-		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-
-	public Branch getBranch() {
-		return branch;
-	}
-
-	public void setBranch(Branch branch) {
-		this.branch = branch;
-	}
-
-	public Vaccine getVaccine() {
-		return vaccine;
-	}
-
-	public void setVaccine(Vaccine vaccine) {
-		this.vaccine = vaccine;
-	}
-
-	public LocalDateTime getSlotDate() {
-		return slotDate;
-	}
-
-	public void setSlotDate(LocalDateTime slotDate) {
-		this.slotDate = slotDate;
-	}
-
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
-
-	public void setPaymentMethod(String paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-
-	public PaymentStatus getPaymentStatus() {
-		return paymentStatus;
-	}
-
-	public void setPaymentStatus(PaymentStatus paymentStatus) {
-		this.paymentStatus = paymentStatus;
-	}
-
-	public boolean isVaccinated() {
-		return isVaccinated;
-	}
-
-	public void setVaccinated(boolean isVaccinated) {
-		this.isVaccinated = isVaccinated;
-	}
-
-	public Long getVersion() {
-		return version;
-	}
-
-	public void setVersion(Long version) {
-		this.version = version;
-	}
-
-}

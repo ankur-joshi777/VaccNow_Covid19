@@ -4,7 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +30,7 @@ class ReportingControllerTest extends AbstractController {
 		appointments.add(appointmentDTO);
 		Mockito.when(appointmentService.getAppliedVaccinationByBranch(Mockito.any()))
 				.thenReturn(new ResponseBody<>(appointments));
-		mockMvc.perform(get("/api/v1/reporting/applied-vaccination-per-branch").param("branchId", "1"))
+		mockMvc.perform(get("/api/v1/reportings/applied-vaccination-per-branch").param("branchId", "1"))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.data[0].id").value(appointmentDTO.getId()));
 
 	}
@@ -42,8 +42,8 @@ class ReportingControllerTest extends AbstractController {
 		appointments.add(appointmentDTO);
 		Mockito.when(appointmentService.getAppliedVaccinationPerDay(Mockito.any(), Mockito.any()))
 				.thenReturn(new ResponseBody<>(appointments));
-		mockMvc.perform(get("/api/v1/reporting/applied-vaccination-per-day")
-				.param("startDate", LocalDate.now().toString()).param("endDate", LocalDate.now().toString()))
+		mockMvc.perform(get("/api/v1/reportings/applied-vaccination-per-day")
+				.param("startDate", LocalDateTime.now().toString()).param("endDate", LocalDateTime.now().toString()))
 				.andExpect(status().isOk()).andExpect(jsonPath("$.data[0].id").value(appointmentDTO.getId()));
 
 	}
@@ -55,8 +55,8 @@ class ReportingControllerTest extends AbstractController {
 		appointments.add(appointmentDTO);
 		Mockito.when(appointmentService.getConfirmedVaccinations(Mockito.any(), Mockito.any()))
 				.thenReturn(new ResponseBody<>(appointments));
-		mockMvc.perform(get("/api/v1/reporting/confirmed-vaccinations").param("startDate", LocalDate.now().toString())
-				.param("endDate", LocalDate.now().toString())).andExpect(status().isOk())
+		mockMvc.perform(get("/api/v1/reportings/confirmed-vaccinations").param("startDate", LocalDateTime.now().toString())
+				.param("endDate", LocalDateTime.now().toString())).andExpect(status().isOk())
 				.andExpect(jsonPath("$.data[0].id").value(appointmentDTO.getId()));
 
 	}

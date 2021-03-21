@@ -1,6 +1,6 @@
 package com.vaccnow.covidvaccination.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,16 +30,16 @@ public class ReportingController {
 
 	@GetMapping(value = { "/applied-vaccination-per-day" })
 	public ResponseEntity<ResponseBody<AppointmentDTO>> getAppliedVaccinationPerday(
-			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
 		return ResponseEntity.ok(appointmentService.getAppliedVaccinationPerDay(startDate, endDate));
 	}
 
 	@GetMapping(value = { "/confirmed-vaccinations" })
 	public ResponseEntity<ResponseBody<AppointmentDTO>> getConfirmedVaccinations(
-			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
+			@RequestParam(required = true) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate) {
 
 		return ResponseEntity.ok(appointmentService.getConfirmedVaccinations(startDate, endDate));
 

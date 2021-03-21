@@ -23,7 +23,6 @@ import com.vaccnow.covidvaccination.model.Branch;
 import com.vaccnow.covidvaccination.model.Vaccine;
 import com.vaccnow.covidvaccination.repository.BranchRepository;
 import com.vaccnow.covidvaccination.response.ResponseBody;
-import com.vaccnow.covidvaccination.service.AppointmentService;
 import com.vaccnow.covidvaccination.service.BranchService;
 import com.vaccnow.covidvaccination.service.VaccineService;
 
@@ -37,8 +36,6 @@ public class AvailabilityController {
 	@Autowired
 	VaccineService vaccineService;
 
-	@Autowired
-	AppointmentService appointmentService;
 
 	@Autowired
 	BranchRepository branchRepository;
@@ -79,7 +76,7 @@ public class AvailabilityController {
 	@GetMapping("{branchId}/specific-availablity")
 	public ResponseEntity<Boolean> getSpecificAvailabilitybyBranchIdAndDate(@PathVariable Integer branchId,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime slotDate) {
-		return ResponseEntity.ok(appointmentService.getSpecificAvailabilitybyBranchIdAndDate(branchId, slotDate));
+		return ResponseEntity.ok(branchService.getSpecificAvailabilitybyBranchIdAndDate(branchId, slotDate));
 	}
 
 }

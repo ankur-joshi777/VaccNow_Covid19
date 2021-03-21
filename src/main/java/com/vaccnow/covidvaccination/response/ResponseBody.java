@@ -2,6 +2,11 @@ package com.vaccnow.covidvaccination.response;
 
 import java.util.List;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class ResponseBody<T> {
 
 	List<T> data;
@@ -10,7 +15,7 @@ public class ResponseBody<T> {
 
 	public ResponseBody(List<T> data, int pageNumber, int pageSize, int totalPages, long totalSize) {
 		this.data = data;
-		this.paginationDetails = new Pagination.Builder().pageNumber(pageNumber).pageSize(pageSize)
+		this.paginationDetails = Pagination.builder().pageNumber(pageNumber).pageSize(pageSize)
 				.totalPages(totalPages).totalSize(totalSize).build();
 	}
 
@@ -18,22 +23,4 @@ public class ResponseBody<T> {
 		this.data = data;
 	}
 
-	public ResponseBody() {
-	}
-
-	public List<T> getData() {
-		return data;
-	}
-
-	public void setData(List<T> data) {
-		this.data = data;
-	}
-
-	public Pagination getPaginationDetails() {
-		return paginationDetails;
-	}
-
-	public void setPaginationDetails(Pagination paginationDetails) {
-		this.paginationDetails = paginationDetails;
-	}
 }

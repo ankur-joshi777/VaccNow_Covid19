@@ -1,6 +1,5 @@
 package com.vaccnow.covidvaccination.repository;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 			@Param(value = "slotDate") LocalDateTime slotDate,
 			@Param(value = "paymentStatus") List<PaymentStatus> paymentStatus);
 
-	@Query("from Appointment where slotDate between :startDate and :endDate and isVaccinated=1 ")
+	@Query("from Appointment where slotDate between :startDate and :endDate and isVaccinated=0 ")
 	List<Appointment> getOpenAppointments(@Param(value = "startDate") LocalDateTime startDate,
 			@Param(value = "endDate") LocalDateTime endDate);
 
@@ -31,11 +30,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
 	@Query("from Appointment where branch.id = :branchId")
 	List<Appointment> findAllByBranchId(@Param(value = "branchId") Integer branchId);
 
+	@Query("from Appointment where branch.id = :branchId and slotDate between :start and :end")
+	List<Appointment> findAllByBranchIdAndDay(@Param(value = "branchId") Integer branchId, @Param(value = "start") LocalDateTime start, @Param(value = "end") LocalDateTime end);
+	
 	@Query("from Appointment where slotDate between :start and :end")
-	List<Appointment> findAllByDay(@Param(value = "start") LocalDate start, @Param(value = "end") LocalDate end);
+	List<Appointment> findAllByDay(@Param(value = "start") LocalDateTime start, @Param(value = "end") LocalDateTime end);
 
 	@Query("from Appointment where isVaccinated=1 and slotDate between :start and :end")
-	List<Appointment> findAllConfirmedByDay(@Param(value = "start") LocalDate start,
-			@Param(value = "end") LocalDate end);
+	List<Appointment> findAllConfirmedByDay(@Param(value = "start") LocalDateTime start,
+			@Param(value = "end") LocalDateTime end);
 
 }

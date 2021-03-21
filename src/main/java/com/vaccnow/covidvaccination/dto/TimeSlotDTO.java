@@ -4,6 +4,9 @@ import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
+
+@Data
 public class TimeSlotDTO {
 
 	public TimeSlotDTO(LocalTime slotTime) {
@@ -15,20 +18,5 @@ public class TimeSlotDTO {
 
 	private Boolean available;
 
-	public LocalTime getSlotTime() {
-		return slotTime;
-	}
-
-	public void setSlotTime(LocalTime slotTime) {
-		this.slotTime = slotTime;
-	}
-
-	public Boolean getAvailable() {
-		return available;
-	}
-
-	public void setAvailable(Boolean available) {
-		this.available = available;
-	}
 
 }

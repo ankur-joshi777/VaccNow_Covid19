@@ -1,6 +1,5 @@
 package com.vaccnow.covidvaccination.service.impl;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
@@ -37,7 +35,7 @@ public class CertificationGenerationServiceImpl implements CertificationGenerati
 			Paragraph paragraph = new Paragraph(message);
 			document.add(paragraph);
 			document.close();
-		} catch (FileNotFoundException | DocumentException ex) {
+		} catch (Exception ex) {
 			LOGGER.error("Exception while generating pdf :: ", ex);
 		}
 		return filePath;

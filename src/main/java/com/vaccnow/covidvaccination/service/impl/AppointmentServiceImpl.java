@@ -1,10 +1,8 @@
 package com.vaccnow.covidvaccination.service.impl;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -25,6 +23,7 @@ import com.vaccnow.covidvaccination.repository.BranchRepository;
 import com.vaccnow.covidvaccination.repository.VaccineRepository;
 import com.vaccnow.covidvaccination.response.ResponseBody;
 import com.vaccnow.covidvaccination.service.AppointmentService;
+import com.vaccnow.covidvaccination.service.BranchService;
 import com.vaccnow.covidvaccination.service.EmailService;
 
 @Service
@@ -44,14 +43,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private BranchService branchService;
 
-	@Override
-	public boolean getSpecificAvailabilitybyBranchIdAndDate(Integer branchId, LocalDateTime slotDate) {
-		Appointment appointment = appointmentRepository.isSlotAvailable(branchId, slotDate,
-				Arrays.asList(PaymentStatus.INITIATED, PaymentStatus.SUCCESS));
-
-		return Objects.nonNull(appointment);
-	}
 
 	@Override
 	public ResponseBody<AppointmentDTO> scheduleVaccination(AppointmentDTO appointmentDTO) {
@@ -59,7 +54,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Optional<Vaccine> optionalVaccine = vaccineRepository.findById(appointmentDTO.getVaccine().getId());
 		if (!(optionalBranch.isPresent() && optionalVaccine.isPresent())) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "couldn't find branch id or vaccine id");
-		} else if (getSpecificAvailabilitybyBranchIdAndDate(appointmentDTO.getBranch().getId(),
+		} else if (branchService.getSpecificAvailabilitybyBranchIdAndDate(appointmentDTO.getBranch().getId(),
 				appointmentDTO.getSlotDate())) {
 			throw new ResponseStatusException(HttpStatus.CONFLICT, "Slot Already Booked");
 		}
@@ -96,7 +91,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public ResponseBody<AppointmentDTO> getAppliedVaccinationPerDay(LocalDate startDate, LocalDate endDate) {
+	public ResponseBody<AppointmentDTO> getAppliedVaccinationPerDay(LocalDateTime startDate, LocalDateTime endDate) {
 		try {
 			List<Appointment> appointments = appointmentRepository.findAllByDay(startDate, endDate);
 			return new ResponseBody<>(
@@ -109,7 +104,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public ResponseBody<AppointmentDTO> getConfirmedVaccinations(LocalDate startDate, LocalDate endDate) {
+	public ResponseBody<AppointmentDTO> getConfirmedVaccinations(LocalDateTime startDate, LocalDateTime endDate) {
 		try {
 			List<Appointment> appointments = appointmentRepository.findAllConfirmedByDay(startDate, endDate);
 			return new ResponseBody<>(

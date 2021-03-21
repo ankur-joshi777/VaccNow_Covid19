@@ -67,7 +67,7 @@ class AvailabilityControllerTest extends AbstractController {
 
 	@Test
 	void testGetSpecificAvailabilitybyBranchIdAndDate() throws Exception {
-		Mockito.when(appointmentService.getSpecificAvailabilitybyBranchIdAndDate(Mockito.any(), Mockito.any()))
+		Mockito.when(branchService.getSpecificAvailabilitybyBranchIdAndDate(Mockito.any(), Mockito.any()))
 				.thenReturn(true);
 		mockMvc.perform(
 				get("/api/v1/branches/1/specific-availablity").param("slotDate", LocalDateTime.now().toString()))
